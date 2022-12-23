@@ -1,0 +1,189 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c10d1f17773ea5429a586b1f0613268, type: 3}
+  m_Name: HelpData
+  m_EditorClassIdentifier: 
+  HelpDataAssets:
+  - title: Login To Project
+    helpData: "You must create a project on the iSpeak platform. \nWhen you create
+      a project, the project ID/Key value is determined and you can use it to log
+      in to the project.\n\nUsage: \niSeapkSDK.LoginUsingWallet( string projectID,
+      string proectKey)\n\nReturns:\nLoginSession\nThis LoginSession is valid until
+      you call the iSpeakSDK.logout()"
+  - title: Project ID
+    helpData: 'This is the identification of the project.
+
+
+      You can get this
+      from the project dashboard at the iSpeak platform.'
+  - title: Project Key
+    helpData: 'This is the Key of the project.
+
+
+      You can get this from the
+      project dashboard at the iSpeak platform.'
+  - title: Get Balances
+    helpData: 'Get the iSpeak token count of the user''s wallet.
+
+
+
+      Usage:
+
+      await
+      iSpeakSDK.getBalances();
+
+      You can use iSpeakSDK.TokenDecimal to convert
+      it into a human-readable type.
+
+
+
+      Returns:
+
+      The iSpeak token count
+      of the user''s wallet.'
+  - title: Get All Items
+    helpData: 'Get all assets in the Project.
+
+      The game developer can use this
+      function to list all items on the game UI. The game player can select some
+      items from this list to purchase.
+
+
+
+      Usage:
+
+      await iSpeakSDK.getInGameItems();
+
+
+
+      Returns:
+
+      GameAssetResponse
+
+      You
+      can get all asset data from the "assets" value in the response.'
+  - title: Get Owned Items
+    helpData: "Get owned assets in the user's wallet.\r\nThe game developer can use
+      this function to list items that the user owned in his/her wallet. \r\n\r\nUsage:\r\nawait
+      iSpeakSDK.getOwnedItems();\r\n\r\nReturns:\r\nGameAssetResponse\r\nYou can
+      get all asset data from the \"assets\" value in the response."
+  - title: Buy Items
+    helpData: "There are two steps in purchasing game items.\r\nFirst step:\r\nPay
+      iSpeak tokens to purchase items.\r\nSecond Step:\r\nRequest delivery the purchased
+      items into the user's wallet.\r\n\r\nTo do this, game developers have to use
+      three functions.\r\nFirst Step:\r\nstring transaction = await iSpeakSDK.PurchaseItem(itemIds,
+      amounts);\r\nitemIds: the array of ID of the items to purchase\r\namounts:
+      the array of count of the items to purchase  \r\nThe length of two arrays must
+      be the same.\r\n\r\nSecond Step:\r\nbool transactionResult = await iSpeakSDK.PurchaseItem(itemIds,
+      amounts);\r\n\r\nThis step needs to wait for the transaction to confirm.\r\n\r\nThird
+      Step:\r\nawait iSpeakSDK.RequestDelivery(transaction);\r\n\r\n\r\n"
+  - title: Request Tokens
+    helpData: "This function can be used in P2E games.\r\nThe game developer can
+      implement game logic that gives some reward to the game player while game playing
+      using this function.\r\nWhen this function is called, The rewarded token is
+      transferred from the developer's wallet to the game player's wallet. \r\nSo
+      the game developer must maintain enough iSpeak tokens in the wallet. (the wallet
+      that is linked to the project.)\r\n\r\nUsage:\r\nstring userBalances = await
+      iSpeakSDK.RequestTokens(amount);\r\n\r\nReturns:\r\nThe new amount of iSpeak
+      tokens in the user's wallet.\r\n"
+  - title: Update Metadata of Item
+    helpData: 'This function can be used to upgrade items in the game.
+
+      The
+      game developer can implement game logic that the game player upgrades his item
+      while game playing.
+
+      The game player can sell the upgraded item at the
+      marketplace.
+
+
+
+      Usage:
+
+      string result = await iSpeakSDK.UpdateMetadata(uint
+      itemID, string propertyName, string newValue);
+
+
+
+      The itemID parameter
+      must be the ID of the item that the game player owns.
+
+      And also the item''s
+      type must be "ERC721".
+
+      The game developer set this type when creating
+      a new asset.
+
+      The propertyName parameter is the field name of the item''s
+      metadata to upgrade.
+
+
+
+      The newValueparameter is the value of the property
+      of the item''s metadata to upgrade.
+
+
+
+      Returns:
+
+      true: Success
+
+      false:
+      Fail
+
+'
+  - title: Refund Item
+    helpData: 'This function can be used to implement the process of refunding items
+      if game players don''t need items anymore.
+
+      The game player receives
+      tokens back that he/she pays to buy the item. (game developer sets the percentage
+      on the platform site)
+
+      
+
+      
+
+      Usage:
+
+      The first step
+      is transferring items from the user''s wallet to the developer''s wallet.
+
+      string
+      transaction = await iSpeakSDK.TransferToken(itemID, amount);
+
+      transactionResult
+      = await iSpeakSDK.WaitForTransaction(transaction);
+
+      
+
+      The second
+      step is to request iSpeak tokens for this refund.
+
+      To do this, the transaction
+      hash of the first step is used.
+
+      string refundTransaction = await iSpeakSDK.RequestRefund(transaction);
+
+      
+
+      The
+      itemID parameter must be the ID of the item that the game player owns.
+
+      
+
+      Returns:
+
+      The
+      transaction hash of the iSpeak tokens transfering.
+
+'
